@@ -1,2 +1,4 @@
 <div id="messages" role="log" aria-live="polite"></div>
 <input id="chat-input" type="text" />
+<h6>Online Users:</h6>
+<ul id="online-users"></ul>

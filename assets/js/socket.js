@@ -6,9 +6,11 @@
 //
 // Pass the token on params as below. Or remove it
 // from the params if you are not using authentication.
-import { Socket } from "phoenix";
+import { Socket, Presence } from "phoenix";
 
-let socket = new Socket("/socket", { params: { token: window.userToken } });
+let socket = new Socket("/socket", {
+  params: { user_id: window.location.search.split("=")[1] },
+});
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -78,6 +80,18 @@ channel.on("new_msg", (payload) => {
   const messageItem = document.createElement("p");
   messageItem.innerText = `[${Date()} ${payload.body}]`;
   messagesContainer.appendChild(messageItem);
+});
+
+const presence = new Presence(channel);
+
+const onlineUsers = document.querySelector("#online-users");
+
+presence.onSync(() => {
+  let list = "";
+  presence.list((id, { metas }) => {
+    list += `<li>${id} count: (${metas.length})</li>`;
+  });
+  onlineUsers.innerHTML = list;
 });
 
 export default socket;

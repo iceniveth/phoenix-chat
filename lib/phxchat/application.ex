@@ -11,7 +11,8 @@ defmodule Phxchat.Application do
       # Start the Ecto repository
       Phxchat.Repo,
       # Start the endpoint when the application starts
-      PhxchatWeb.Endpoint
+      PhxchatWeb.Endpoint,
+      PhxchatWeb.Presence
       # Starts a worker by calling: Phxchat.Worker.start_link(arg)
       # {Phxchat.Worker, arg},
     ]
